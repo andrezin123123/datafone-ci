@@ -4,3 +4,14 @@ on:
     workflow_call:
 
 jobs:
+ 
+  EC2:
+    runs-on: ubuntu-latest
+    steps:
+
+     - name: Download a Build Artifact
+       uses: actions/download-artifact@v4.1.8
+       with:
+    # Name of the artifact to download. If unspecified, all artifacts for the run are downloaded.
+        name: go_compiled
+     - uses: actions/checkout@v3 # arquivos estaticos da aplicação que nao vai no binario compilado
