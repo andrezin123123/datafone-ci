@@ -22,6 +22,20 @@ jobs:
            SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
            REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
            REMOTE_USER: ${{ secrets.REMOTE_USER }}
-           TARGET: ${{ secrets.REMOTE_TARGET }}
-           EXCLUDE: "/dist/, /node_modules/"
-        
+           TARGET: /home/${{ secrets.REMOTE_USER }}
+           EXCLUDE: "postgres-data"
+
+     - name: executing remote ssh commands using password
+       uses: appleboy/ssh-action@v1.2.0
+       with:
+          host:  ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.PORT_SSH }}
+          script: |    
+            export HOST= ${{ secrets.DBHOST }}
+            export USER= ${{ secrets.DBUSER }}        
+            export PASSWORD= ${{ secrets.DBPASSWORD }}
+            export DBNAME= ${{ secrets.DBNAME }}
+            export PORT= ${{ secrets.DBPORT }}
+            
